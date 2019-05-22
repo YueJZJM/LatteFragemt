@@ -11,7 +11,7 @@ public class ExampleApp extends Application {
     public void onCreate() {
         super.onCreate();
         Latte.init(this)
-                .withApiHost("aaa")
+                .withApiHost("http://mock.fulingjie.com/mock-android/data/")
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())  //自定义字体 module
                 .configure();
