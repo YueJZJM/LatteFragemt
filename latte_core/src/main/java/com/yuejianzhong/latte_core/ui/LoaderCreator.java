@@ -30,7 +30,7 @@ public final class LoaderCreator {
         if (!name.contains(".")) {
             final String defaultPackage = AVLoadingIndicatorView.class.getPackage().getName();
             drawableClassName.append(defaultPackage)
-                    .append(".")
+//                    .append(".")
                     .append(".indicators")
                     .append(".");
         }

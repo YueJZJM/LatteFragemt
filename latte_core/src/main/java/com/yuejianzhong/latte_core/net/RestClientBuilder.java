@@ -6,6 +6,7 @@ import com.yuejianzhong.latte_core.net.callback.IError;
 import com.yuejianzhong.latte_core.net.callback.IFailure;
 import com.yuejianzhong.latte_core.net.callback.IRequest;
 import com.yuejianzhong.latte_core.net.callback.ISuccess;
+import com.yuejianzhong.latte_core.net.download.DownloadHandler;
 import com.yuejianzhong.latte_core.ui.LoaderStyle;
 
 import java.io.File;
@@ -28,6 +29,10 @@ public class RestClientBuilder {
     private Context mContext;
     private LoaderStyle mLoaderStyle;
     private File mFile;
+
+    private String mDownloadDir = null;
+    private String mExtension = null;
+    private String mName = null;
 
     RestClientBuilder(){}
 
@@ -92,12 +97,24 @@ public class RestClientBuilder {
         this.mLoaderStyle = LoaderStyle.BallClipRotatePulseIndicator;
         return this;
     }
+    public final RestClientBuilder dir(String dir) {
+        this.mDownloadDir = dir;
+        return this;
+    }
+
+    public final RestClientBuilder extension(String extension) {
+        this.mExtension = extension;
+        return this;
+    }
 
     public final RestClient build() {
         return new RestClient(this.mUrl, PARAMS, this.mIRequest,
                 this.mIFailure, this.mIError, this.mISuccess, this.mBody,this.mFile,this.mContext
-        ,this.mLoaderStyle);
+        ,this.mLoaderStyle,this.mDownloadDir,this.mExtension,this.mName);
     }
 
-
+    public final void download() {
+        new DownloadHandler(mUrl, mIRequest, mDownloadDir, mExtension,mName, mISuccess, mIFailure, mIError)
+                .handleDownload();
+    }
 }

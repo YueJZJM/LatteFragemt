@@ -8,6 +8,7 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
+import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Multipart;
@@ -24,14 +25,14 @@ public interface RestService {
 
     @FormUrlEncoded
     @POST
-    Call<String> post(@Url String url, Map<String, Object> params);
+    Call<String> post(@Url String url,@FieldMap Map<String, Object> params);
 
     @POST
     Call<String> postRaw(@Url String url, @Body RequestBody body);
 
     @FormUrlEncoded
     @PUT
-    Call<String> put(@Url String url, Map<String, Object> params);
+    Call<String> put(@Url String url,@FieldMap Map<String, Object> params);
 
     @PUT
     Call<String> putRaw(@Url String url, @Body RequestBody body);
