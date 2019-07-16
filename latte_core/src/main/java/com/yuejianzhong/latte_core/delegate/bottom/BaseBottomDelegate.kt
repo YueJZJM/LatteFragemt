@@ -68,7 +68,7 @@ abstract class BaseBottomDelegate : LatteDelegate(),View.OnClickListener {
     }
 
 
-    override fun onBindView(savedInstanceState: Bundle?, rootView: View?) {
+    override fun onBindView(savedInstanceState: Bundle?, rootView: View) {
 
         mBottomBar = rootView!!.findViewById(R.id.bottom_bar)
         val size = ITEMS.size

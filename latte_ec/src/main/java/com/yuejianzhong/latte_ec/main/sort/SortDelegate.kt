@@ -10,7 +10,7 @@ class SortDelegate : BottomItemDelegate() {
         return R.layout.delegate_sort
     }
 
-    override fun onBindView(savedInstanceState: Bundle?, rootView: View?) {
+    override fun onBindView(savedInstanceState: Bundle?, rootView: View) {
     }
 
 
