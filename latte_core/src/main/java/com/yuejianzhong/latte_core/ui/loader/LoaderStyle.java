@@ -1,4 +1,4 @@
-package com.yuejianzhong.latte_core.ui;
+package com.yuejianzhong.latte_core.ui.loader;
 
 public enum LoaderStyle {
     BallPulseIndicator,

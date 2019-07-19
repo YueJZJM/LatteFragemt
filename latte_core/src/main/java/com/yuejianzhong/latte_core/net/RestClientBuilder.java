@@ -7,13 +7,11 @@ import com.yuejianzhong.latte_core.net.callback.IFailure;
 import com.yuejianzhong.latte_core.net.callback.IRequest;
 import com.yuejianzhong.latte_core.net.callback.ISuccess;
 import com.yuejianzhong.latte_core.net.download.DownloadHandler;
-import com.yuejianzhong.latte_core.ui.LoaderStyle;
+import com.yuejianzhong.latte_core.ui.loader.LoaderStyle;
 
 import java.io.File;
 import java.util.Map;
-import java.util.WeakHashMap;
 
-import okhttp3.Call;
 import okhttp3.MediaType;
 import okhttp3.RequestBody;
 

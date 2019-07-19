@@ -3,7 +3,11 @@ package com.yuejianzhong.latte_ec.main.index
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import com.yuejianzhong.latte_core.delegate.bottom.BottomItemDelegate
+import com.yuejianzhong.latte_core.net.RestClient
+import com.yuejianzhong.latte_core.net.callback.ISuccess
+import com.yuejianzhong.latte_core.ui.recycler.MultipleFields
 import com.yuejianzhong.latte_core.ui.refresh.RefreshHandler
 import com.yuejianzhong.latte_ec.R
 import kotlinx.android.synthetic.main.delegate_index.*
@@ -12,12 +16,12 @@ class IndexDelegate : BottomItemDelegate() {
 //    override fun onBindView(savedInstanceState: Bundle?, rootView: View) {
 //    }
 
-    private lateinit var mRefreshHandler: RefreshHandler
+    private var mRefreshHandler: RefreshHandler ?= null
 
 
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
-        initRefreshLayout()
+//        initRefreshLayout()
     }
 
     override fun setLayout(): Any {
@@ -30,7 +34,18 @@ class IndexDelegate : BottomItemDelegate() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initRefreshLayout()
         mRefreshHandler= RefreshHandler(srl_index)
+        mRefreshHandler!!.firstPage("http://mock.fulingjie.com/mock-android/data/index_data.json")
+
+        RestClient.builder()
+                .url("http://mock.fulingjie.com/mock-android/data/index_data.json")
+                .success(ISuccess {response: String? ->
+                    val converter: IndexDataConverter = IndexDataConverter()
+                    val list =  converter.conver()
+                    val image :String = list[1].getField(MultipleFields.IMAGE_URL) as String
+                    Toast.makeText(context,image,Toast.LENGTH_SHORT).show()
+                }).build().get()
     }
 
     private fun initRefreshLayout(){

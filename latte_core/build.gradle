@@ -70,7 +70,9 @@ dependencies {
     api 'com.alibaba:fastjson:1.1.68.android'
     //Log
     api 'com.orhanobut:logger:2.2.0'
-//    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    api "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    //RecyclerView
+    api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.30'
 }
 repositories {
     mavenCentral()

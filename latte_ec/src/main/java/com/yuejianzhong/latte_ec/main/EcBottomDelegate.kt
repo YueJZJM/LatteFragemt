@@ -6,6 +6,7 @@ import com.yuejianzhong.latte_core.delegate.bottom.BottomItemDelegate
 import com.yuejianzhong.latte_core.delegate.bottom.BottomTabBean
 import com.yuejianzhong.latte_core.delegate.bottom.ItemBuilder
 import com.yuejianzhong.latte_ec.main.index.IndexDelegate
+import com.yuejianzhong.latte_ec.main.index.IndexDelegate1
 import com.yuejianzhong.latte_ec.main.sort.SortDelegate
 import java.util.LinkedHashMap
 
