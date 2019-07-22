@@ -17,7 +17,10 @@ class MultipleEntityBulider {
         return this
     }
 
-    public final fun setField(key: Any, value: Any): MultipleEntityBulider {
+    public final fun setField(key: Any?, value: Any?): MultipleEntityBulider {
+        if (key == null || value == null) {
+            return this
+        }
         FIELDS[key] = value
         return this
     }

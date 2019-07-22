@@ -36,12 +36,13 @@ class IndexDelegate : BottomItemDelegate() {
         super.onViewCreated(view, savedInstanceState)
         initRefreshLayout()
         mRefreshHandler= RefreshHandler(srl_index)
-        mRefreshHandler!!.firstPage("http://mock.fulingjie.com/mock-android/data/index_data.json")
+//        mRefreshHandler!!.firstPage("http://mock.fulingjie.com/mock-android/data/index_data.json")
 
         RestClient.builder()
                 .url("http://mock.fulingjie.com/mock-android/data/index_data.json")
                 .success(ISuccess {response: String? ->
                     val converter: IndexDataConverter = IndexDataConverter()
+                    converter.mJsonData = response
                     val list =  converter.conver()
                     val image :String = list[1].getField(MultipleFields.IMAGE_URL) as String
                     Toast.makeText(context,image,Toast.LENGTH_SHORT).show()
