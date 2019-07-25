@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.yuejianzhong.latte_core.delegate.bottom.BottomItemDelegate;
 import com.yuejianzhong.latte_core.ui.refresh.RefreshHandler;
-import com.yuejianzhong.latte_core.ui.refresh.RefreshHandler1;
 import com.yuejianzhong.latte_ec.R;
 import com.yuejianzhong.latte_ec.R2;
 
@@ -54,7 +53,7 @@ public class IndexDelegate1 extends BottomItemDelegate {
     @Override
     public void onResume() {
         super.onResume();
-        mRefreshHandler = new RefreshHandler(mRefreshLayout);
+//        mRefreshHandler = new RefreshHandler(mRefreshLayout);
         Log.d("IndexDelegate1", mRefreshLayout.toString());
     }
 }

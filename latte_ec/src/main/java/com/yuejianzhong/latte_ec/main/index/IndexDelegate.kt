@@ -1,6 +1,7 @@
 package com.yuejianzhong.latte_ec.main.index
 
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -35,18 +36,22 @@ class IndexDelegate : BottomItemDelegate() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRefreshLayout()
-        mRefreshHandler= RefreshHandler(srl_index)
-//        mRefreshHandler!!.firstPage("http://mock.fulingjie.com/mock-android/data/index_data.json")
+        initRecyclerView()
+        mRefreshHandler= RefreshHandler.create(srl_index,rv_index,IndexDataConverter())
 
-        RestClient.builder()
-                .url("http://mock.fulingjie.com/mock-android/data/index_data.json")
-                .success(ISuccess {response: String? ->
-                    val converter: IndexDataConverter = IndexDataConverter()
-                    converter.mJsonData = response
-                    val list =  converter.conver()
-                    val image :String = list[1].getField(MultipleFields.IMAGE_URL) as String
-                    Toast.makeText(context,image,Toast.LENGTH_SHORT).show()
-                }).build().get()
+        mRefreshHandler!!.firstPage("http://mock.fulingjie.com/mock-android/data/index_data.json")
+
+
+
+//        RestClient.builder()
+//                .url("http://mock.fulingjie.com/mock-android/data/index_data.json")
+//                .success(ISuccess {response: String? ->
+//                    val converter: IndexDataConverter = IndexDataConverter()
+//                    converter.mJsonData = response
+//                    val list =  converter.conver()
+//                    val image :String = list[1].getField(MultipleFields.IMAGE_URL) as String
+//                    Toast.makeText(context,image,Toast.LENGTH_SHORT).show()
+//                }).build().get()
     }
 
     private fun initRefreshLayout(){
@@ -56,5 +61,10 @@ class IndexDelegate : BottomItemDelegate() {
         )
         srl_index.setProgressViewOffset(true,120,300)
         Log.d("initRefreshLayout",srl_index.toString())
+    }
+
+    fun initRecyclerView(){
+        val manager: GridLayoutManager = GridLayoutManager(context, 4)
+        rv_index.layoutManager = manager
     }
 }
