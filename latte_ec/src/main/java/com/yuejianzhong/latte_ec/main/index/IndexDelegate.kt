@@ -1,6 +1,7 @@
 package com.yuejianzhong.latte_ec.main.index
 
 import android.os.Bundle
+import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
@@ -8,9 +9,11 @@ import android.widget.Toast
 import com.yuejianzhong.latte_core.delegate.bottom.BottomItemDelegate
 import com.yuejianzhong.latte_core.net.RestClient
 import com.yuejianzhong.latte_core.net.callback.ISuccess
+import com.yuejianzhong.latte_core.ui.recycler.BaseDecoration
 import com.yuejianzhong.latte_core.ui.recycler.MultipleFields
 import com.yuejianzhong.latte_core.ui.refresh.RefreshHandler
 import com.yuejianzhong.latte_ec.R
+import com.yuejianzhong.latte_ec.main.EcBottomDelegate
 import kotlinx.android.synthetic.main.delegate_index.*
 
 class IndexDelegate : BottomItemDelegate() {
@@ -66,5 +69,12 @@ class IndexDelegate : BottomItemDelegate() {
     fun initRecyclerView(){
         val manager: GridLayoutManager = GridLayoutManager(context, 4)
         rv_index.layoutManager = manager
+        rv_index.addItemDecoration(
+                BaseDecoration.create(
+                        ContextCompat.getColor(
+                                context!!,com.yuejianzhong.latte_core.R.color.app_background),5))
+
+        var ecBottonDelegate: EcBottomDelegate = getParentDelegate()
+        rv_index.addOnItemTouchListener(IndexItemClickListener.create(ecBottonDelegate))
     }
 }
