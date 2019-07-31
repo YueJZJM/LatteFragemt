@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter
 import com.yuejianzhong.latte_core.R
 import com.yuejianzhong.latte_core.ui.banner.BannerCreator
 
-class MultipleRecyclerAdapter private constructor(data: List<MultipleItemEntity>) : BaseMultiItemQuickAdapter<MultipleItemEntity, MultipleViewHolder>(data)
+open class MultipleRecyclerAdapter constructor(data: List<MultipleItemEntity>) : BaseMultiItemQuickAdapter<MultipleItemEntity, MultipleViewHolder>(data)
         , BaseQuickAdapter.SpanSizeLookup,OnItemClickListener {
 
     init {

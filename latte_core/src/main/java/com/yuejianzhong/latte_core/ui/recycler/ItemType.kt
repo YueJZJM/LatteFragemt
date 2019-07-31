@@ -8,6 +8,7 @@ class ItemType {
         public val IMAGE = 2
         public val TEXT_IMAGE = 3
         public val BANNER = 4
+        public val VERTICAL_MENU_LIST = 5
     }
 
 
