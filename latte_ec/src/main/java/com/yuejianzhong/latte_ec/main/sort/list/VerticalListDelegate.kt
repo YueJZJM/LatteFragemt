@@ -26,6 +26,12 @@ class VerticalListDelegate : LatteDelegate() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecyclerView()
+
+
+    }
+
+    override fun onLazyInitView(savedInstanceState: Bundle?) {
+        super.onLazyInitView(savedInstanceState)
         RestClient.builder()
                 .url("http://mock.fulingjie.com/mock-android/data/sort_list_data.json")
                 .loader(context)
@@ -34,14 +40,10 @@ class VerticalListDelegate : LatteDelegate() {
                     val delegate = getParentDelegate<SortDelegate>()
                     val adapter = SortRecyclerAdapter(data, delegate)
                     rv_vertical_menu_list.adapter = adapter
-                    Log.d("Vertical", it.toString())
 
                 })
-    }
-
-    override fun onLazyInitView(savedInstanceState: Bundle?) {
-        super.onLazyInitView(savedInstanceState)
-
+                .build()
+                .get()
     }
 
     private fun initRecyclerView() {

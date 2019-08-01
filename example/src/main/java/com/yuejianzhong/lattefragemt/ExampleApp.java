@@ -6,7 +6,6 @@ import com.joanzapata.iconify.fonts.FontAwesomeModule;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.yuejianzhong.latte_core.app.Latte;
-import com.yuejianzhong.latte_core.net.interceptors.DebugInterceptor;
 import com.yuejianzhong.latte_ec.icon.FontEcModule;
 
 import static com.yuejianzhong.lattefragemt.R.*;

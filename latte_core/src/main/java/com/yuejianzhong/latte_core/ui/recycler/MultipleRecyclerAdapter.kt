@@ -89,7 +89,7 @@ open class MultipleRecyclerAdapter constructor(data: List<MultipleItemEntity>) :
                 }
                 ItemType.TEXT_IMAGE -> {
                     text = entity?.getField(MultipleFields.TEXT) as String
-                    imageUrl = entity?.getField(MultipleFields.IMAGE_URL) as String
+                    imageUrl = entity.getField(MultipleFields.IMAGE_URL) as String
                     Glide.with(mContext).load(imageUrl)
                             .diskCacheStrategy(DiskCacheStrategy.ALL)
                             .dontAnimate()

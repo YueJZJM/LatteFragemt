@@ -30,6 +30,6 @@ androidExtensions {
 }
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
-    implementation project(':latte_ec')
+    api project(':latte_ec')
     annotationProcessor project(':latte_compiler')
 }

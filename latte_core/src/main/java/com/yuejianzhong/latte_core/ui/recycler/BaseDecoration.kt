@@ -3,7 +3,7 @@ package com.yuejianzhong.latte_core.ui.recycler
 import android.support.annotation.ColorInt
 import com.choices.divider.DividerItemDecoration
 
-class BaseDecoration public constructor(@ColorInt var color:Int,var size:Int):DividerItemDecoration(){
+class BaseDecoration public constructor(@ColorInt var color:Int,var size:Int): DividerItemDecoration(){
   init {
       setDividerLookup(DividerLookupImp(color, size))
   }
