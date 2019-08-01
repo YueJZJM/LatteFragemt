@@ -11,13 +11,10 @@ import com.yuejianzhong.latte_core.delegate.LatteDelegate;
 import com.yuejianzhong.latte_core.ui.launcher.ILauncherListener;
 import com.yuejianzhong.latte_core.ui.launcher.OnLauncherFinishTag;
 import com.yuejianzhong.latte_ec.launcher.LauncherDelegate;
-import com.yuejianzhong.latte_ec.launcher.LauncherScrollDelegate;
 import com.yuejianzhong.latte_ec.main.EcBottomDelegate;
 import com.yuejianzhong.latte_ec.sign.ISignListener;
-import com.yuejianzhong.latte_ec.sign.SignInDelegate;
-import com.yuejianzhong.latte_ec.sign.SignUpDelegate;
 
-public class ExampleActivity extends ProxyActivity implements ISignListener,ILauncherListener {
+public class ExampleActivity extends ProxyActivity implements ISignListener, ILauncherListener {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

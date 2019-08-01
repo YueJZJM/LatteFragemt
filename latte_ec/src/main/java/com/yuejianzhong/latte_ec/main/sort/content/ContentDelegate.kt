@@ -1,6 +1,7 @@
 package com.yuejianzhong.latte_ec.main.sort.content
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import com.yuejianzhong.latte_core.delegate.LatteDelegate
 import com.yuejianzhong.latte_ec.R
@@ -25,6 +26,7 @@ class ContentDelegate : LatteDelegate() {
         val arge = arguments
         arge?.let {
             mContentId = it.getInt(ARG_CONTENT_ID)
+            Log.d("ContentDelegate", mContentId.toString())
         }
     }
 
