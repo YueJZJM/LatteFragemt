@@ -4,11 +4,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import com.yuejianzhong.latte_core.delegate.LatteDelegate
+import com.yuejianzhong.latte_core.net.RestClient
 import com.yuejianzhong.latte_ec.R
+import com.yuejianzhong.latte_ec.R.id.rv_list_content
+import kotlinx.android.synthetic.main.delegate_list_content.*
 
 class ContentDelegate : LatteDelegate() {
 
     private var mContentId = -1
+
+    private var mData : List<SectionBean>? = null
 
     companion object{
         val ARG_CONTENT_ID = "CONTENT_ID"
@@ -34,7 +39,29 @@ class ContentDelegate : LatteDelegate() {
         return R.layout.delegate_list_content
     }
 
-    override fun onBindView(savedInstanceState: Bundle?, rootView: View) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
     }
 
+
+    override fun onBindView(savedInstanceState: Bundle?, rootView: View) {
+        initData()
+    }
+
+
+    fun initData() {
+        RestClient.builder()
+                .url("http://mock.fulingjie.com/mock-android/data/sort_content_data_1.json")
+                .success {
+                    Log.d("yuejz",it)
+                    mData = SectionDataConverter().conver(it)
+                    val sectionAdapter = SectionAdapter(R.layout.item_section_content,
+                            R.layout.item_section_header,
+                            mData!!)
+                    rv_list_content.adapter = sectionAdapter
+
+                }
+                .build().get()
+    }
 }
