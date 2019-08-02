@@ -7,7 +7,7 @@ import com.alibaba.fastjson.JSONObject
 class SectionDataConverter {
 
 
-    fun conver(json: String): List<SectionBean> {
+    fun convert(json: String): List<SectionBean> {
 
         val dataList = ArrayList<SectionBean>()
         val dataArray:JSONArray = JSON.parseObject(json).getJSONArray("data")

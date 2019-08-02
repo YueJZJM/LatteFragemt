@@ -109,4 +109,8 @@ open class MultipleRecyclerAdapter constructor(data: List<MultipleItemEntity>) :
 
     }
 
+    override fun getItemCount(): Int {
+        return data.size
+    }
+
 }

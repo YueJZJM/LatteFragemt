@@ -11,4 +11,8 @@ class SectionBean : SectionEntity<SectionContentItemEntity> {
     constructor(sectionContentItemEntity: SectionContentItemEntity) : super(sectionContentItemEntity) {}
 
     constructor(isHeader: Boolean, header: String) : super(isHeader, header) {}
+
+    override fun toString(): String {
+        return "isMore = $isMore,d = $id"
+    }
 }

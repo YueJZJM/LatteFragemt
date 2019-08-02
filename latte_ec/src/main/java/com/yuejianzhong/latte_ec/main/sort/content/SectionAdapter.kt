@@ -8,10 +8,6 @@ import android.support.v7.widget.AppCompatImageView
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
 
-
-
-
-
 class SectionAdapter(layoutResId: Int, sectionHeadResId: Int, data: List<SectionBean>) : BaseSectionQuickAdapter<SectionBean, BaseViewHolder>(layoutResId, sectionHeadResId, data) {
 
     private val OPTIONS = RequestOptions()
