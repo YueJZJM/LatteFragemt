@@ -63,11 +63,11 @@ class IndexDelegate : BottomItemDelegate() {
                 android.R.color.holo_red_light
         )
         srl_index.setProgressViewOffset(true,120,300)
-        Log.d("initRefreshLayout",srl_index.toString())
+//        Log.d("initRefreshLayout",srl_index.toString())
     }
 
     fun initRecyclerView(){
-        val manager: GridLayoutManager = GridLayoutManager(context, 4)
+        val manager = GridLayoutManager(context, 4)
         rv_index.layoutManager = manager
         rv_index.addItemDecoration(
                 BaseDecoration.create(

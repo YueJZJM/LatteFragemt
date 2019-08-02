@@ -1,6 +1,7 @@
 package com.yuejianzhong.latte_ec.main.sort.content
 
 import android.os.Bundle
+import android.support.v7.widget.StaggeredGridLayoutManager
 import android.util.Log
 import android.view.View
 import com.yuejianzhong.latte_core.delegate.LatteDelegate
@@ -41,12 +42,14 @@ class ContentDelegate : LatteDelegate() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        val manager: StaggeredGridLayoutManager = StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL)
+        rv_list_content.layoutManager = manager
+        initData()
     }
 
 
     override fun onBindView(savedInstanceState: Bundle?, rootView: View) {
-        initData()
+
     }
 
 
@@ -54,8 +57,9 @@ class ContentDelegate : LatteDelegate() {
         RestClient.builder()
                 .url("http://mock.fulingjie.com/mock-android/data/sort_content_data_1.json")
                 .success {
-                    Log.d("yuejz",it)
-                    mData = SectionDataConverter().conver(it)
+//                    Log.d("yuejz",it)
+                    mData = SectionDataConverter().convert(it)
+                    Log.d("yuejz", mData!![0].toString())
                     val sectionAdapter = SectionAdapter(R.layout.item_section_content,
                             R.layout.item_section_header,
                             mData!!)
