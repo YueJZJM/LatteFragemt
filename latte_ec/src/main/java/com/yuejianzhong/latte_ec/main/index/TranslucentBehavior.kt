@@ -32,18 +32,23 @@ class TranslucentBehavior(context: Context, attrs: AttributeSet) : CoordinatorLa
         val endOffset = context.resources.getDimensionPixelOffset(R.dimen.header_height) + MORE
         mOffset += dyConsumed
         if (mOffset <= startOffset) {
-            toolbar.getBackground().setAlpha(0)
+            toolbar.background.alpha = 0
         } else if (mOffset > startOffset && mOffset < endOffset) {
             val percent = (mOffset - startOffset).toFloat() / endOffset
             val alpha = Math.round(percent * 255)
-            toolbar.getBackground().setAlpha(alpha)
+            toolbar.background.alpha = alpha
         } else if (mOffset >= endOffset) {
-            toolbar.getBackground().setAlpha(255)
+            toolbar.background.alpha = 255
         }
     }
 
     companion object {
         //延长滑动过程
         private val MORE = 100
+    }
+
+    override fun onMeasureChild(parent: CoordinatorLayout, child: Toolbar, parentWidthMeasureSpec: Int, widthUsed: Int, parentHeightMeasureSpec: Int, heightUsed: Int): Boolean {
+        child.background.alpha = 0
+        return super.onMeasureChild(parent, child, parentWidthMeasureSpec, widthUsed, parentHeightMeasureSpec, heightUsed)
     }
 }
