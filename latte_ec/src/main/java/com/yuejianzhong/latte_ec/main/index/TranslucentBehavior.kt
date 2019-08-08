@@ -39,13 +39,13 @@ class TranslucentBehavior(context: Context, attrs: AttributeSet) : CoordinatorLa
         mOffset += dyConsumed
         if (mOffset <= startOffset) {
 
-            toolbar.getBackground().setAlpha(0)
+            toolbar.getBackground().mutate().setAlpha(0)
         } else if (mOffset < endOffset) {
             val percent = (mOffset - startOffset).toFloat() / endOffset
             val alpha = Math.round(percent * 255)
-            toolbar.getBackground().setAlpha(alpha)
+            toolbar.getBackground().mutate().setAlpha(alpha)
         } else if (mOffset >= endOffset) {
-            toolbar.getBackground().setAlpha(255)
+            toolbar.getBackground().mutate().setAlpha(255)
         }
     }
 

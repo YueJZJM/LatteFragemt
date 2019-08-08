@@ -43,7 +43,7 @@ class IndexDelegate : BottomItemDelegate() {
         mRefreshHandler= RefreshHandler.create(srl_index,rv_index,IndexDataConverter())
 
         mRefreshHandler!!.firstPage("http://mock.fulingjie.com/mock-android/data/index_data.json")
-        tb_index.background.alpha = 0
+        tb_index.background.mutate().alpha = 0
 
 
 

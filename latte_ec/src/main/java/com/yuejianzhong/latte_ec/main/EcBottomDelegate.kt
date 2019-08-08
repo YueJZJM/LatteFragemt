@@ -5,6 +5,7 @@ import com.yuejianzhong.latte_core.delegate.bottom.BaseBottomDelegate
 import com.yuejianzhong.latte_core.delegate.bottom.BottomItemDelegate
 import com.yuejianzhong.latte_core.delegate.bottom.BottomTabBean
 import com.yuejianzhong.latte_core.delegate.bottom.ItemBuilder
+import com.yuejianzhong.latte_ec.main.cart.ShopCartDelegate
 import com.yuejianzhong.latte_ec.main.discover.DiscoverDelegate
 import com.yuejianzhong.latte_ec.main.index.IndexDelegate
 import com.yuejianzhong.latte_ec.main.index.IndexDelegate1
@@ -21,7 +22,7 @@ class EcBottomDelegate : BaseBottomDelegate() {
         items[BottomTabBean("{fa-home}", "主页")] = IndexDelegate()
         items[BottomTabBean("{fa-sort}", "分类")] = SortDelegate()
         items[BottomTabBean("{fa-compass}", "发现")] = DiscoverDelegate()
-        items[BottomTabBean("{fa-shopping-cart}", "购物车")] = IndexDelegate()
+        items[BottomTabBean("{fa-shopping-cart}", "购物车")] = ShopCartDelegate()
         items[BottomTabBean("{fa-user}", "我的")] = IndexDelegate()
         return builder.addItems(items).build()
     }
