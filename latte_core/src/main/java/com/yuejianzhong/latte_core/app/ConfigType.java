@@ -6,5 +6,6 @@ public enum ConfigType {
     CONFIG_READY,
     ICON,
     INTERCEPTOR,
-    HANDLER
+    HANDLER,
+    JAVASCRIPT_INTERFACE,
 }

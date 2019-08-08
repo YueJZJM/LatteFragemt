@@ -84,4 +84,9 @@ public class Configurator {
         LATTE_CONFIGS.put(ConfigType.INTERCEPTOR, INTERCEPTORS);
         return this;
     }
+
+    public Configurator withJavascriptInterface(String name) {
+        LATTE_CONFIGS.put(ConfigType.JAVASCRIPT_INTERFACE, name);
+        return this;
+    }
 }

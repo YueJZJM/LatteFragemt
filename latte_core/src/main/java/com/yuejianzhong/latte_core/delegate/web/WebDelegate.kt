@@ -10,11 +10,19 @@ import com.yuejianzhong.latte_core.delegate.web.route.RouteKeys
 import java.lang.ref.ReferenceQueue
 import java.lang.ref.WeakReference
 
-abstract class WebDelegate : LatteDelegate() {
-   private var webView:WebView? = null
+abstract class WebDelegate : LatteDelegate(),IWebViewInitializer {
+    public var webView:WebView? = null
     private val referenceQueue = ReferenceQueue<WebView>()
-    private var mUrl:String? = null
+    var mUrl:String? = null
     protected var mIsWebViewAbailable = false
+    var  topDelegate: LatteDelegate? = null
+        get() {
+//        if (topDelegate == null){
+//            topDelegate = this
+//        }
+//        return topDelegate
+            return topDelegate?:return this
+    }
 
     public abstract fun setInitializer(): IWebViewInitializer
 
@@ -22,6 +30,7 @@ abstract class WebDelegate : LatteDelegate() {
         super.onCreate(savedInstanceState)
         val args = arguments
         mUrl = args?.getString(RouteKeys.URL.name) as String
+        initWebView()
 
     }
 
@@ -46,6 +55,19 @@ abstract class WebDelegate : LatteDelegate() {
             }
         }
     }
+
+//    fun getUrl():String{
+//        return mUrl
+//    }
+//
+//    public fun getWebView():WebView{
+//        webView?.let {
+//           if (mIsWebViewAbailable) {
+//               return it
+//
+//           }else{}
+//        }
+//    }
 
     override fun onPause() {
         super.onPause()
