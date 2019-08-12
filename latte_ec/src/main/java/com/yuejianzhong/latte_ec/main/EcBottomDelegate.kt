@@ -8,7 +8,6 @@ import com.yuejianzhong.latte_core.delegate.bottom.ItemBuilder
 import com.yuejianzhong.latte_ec.main.cart.ShopCartDelegate
 import com.yuejianzhong.latte_ec.main.discover.DiscoverDelegate
 import com.yuejianzhong.latte_ec.main.index.IndexDelegate
-import com.yuejianzhong.latte_ec.main.index.IndexDelegate1
 import com.yuejianzhong.latte_ec.main.sort.SortDelegate
 import java.util.LinkedHashMap
 
