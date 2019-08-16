@@ -1,7 +1,8 @@
 package com.yuejianzhong.latte_core.ui.recycler
 
-public enum class MultipleFields {
+enum class MultipleFields {
     ITEM_TYPE,
+    TITLE,
     TEXT,
     IMAGE_URL,
     BANNERS,

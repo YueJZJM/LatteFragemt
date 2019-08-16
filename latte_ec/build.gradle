@@ -32,6 +32,9 @@ dependencies {
 
     annotationProcessor 'com.jakewharton:butterknife-compiler:9.0.0'
 //    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+
+    //圆角图片
+    implementation 'de.hdodenhof:circleimageview:2.2.0'
 }
 repositories {
     mavenCentral()

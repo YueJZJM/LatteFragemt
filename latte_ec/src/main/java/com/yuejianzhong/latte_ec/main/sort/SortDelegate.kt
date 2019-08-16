@@ -24,9 +24,9 @@ class SortDelegate : BottomItemDelegate() {
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         val verticalListDelegate = VerticalListDelegate()
-        loadRootFragment(R.id.vertical_list_container, verticalListDelegate)
+        supportDelegate.loadRootFragment(R.id.vertical_list_container, verticalListDelegate)
         //默认显示第一个分类
-        loadRootFragment(R.id.sort_content_container, ContentDelegate.newInstance(1))
+        supportDelegate.loadRootFragment(R.id.sort_content_container, ContentDelegate.newInstance(1))
     }
 
 }

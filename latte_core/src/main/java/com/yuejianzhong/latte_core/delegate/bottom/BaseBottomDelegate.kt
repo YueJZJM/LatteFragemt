@@ -93,13 +93,15 @@ abstract class BaseBottomDelegate : LatteDelegate(),View.OnClickListener {
 
         val delegate = ITEM_DELEGATES.toArray()
         val delegateArray = ITEM_DELEGATES.toArray(arrayOfNulls<ISupportFragment>(size))
-        loadMultipleRootFragment(R.id.bottom_bar_delegate_container, mIndexDelegate, *delegateArray)
+        supportDelegate.loadMultipleRootFragment(R.id.bottom_bar_delegate_container, mIndexDelegate, *delegateArray)
     }
 
     override fun onClick(v: View?) {
         Log.d("BaseBottomDelegate","点击")
         val tabIndex = v!!.tag as Int
         resetColor(tabIndex)
+        Log.d("show",tabIndex.toString())
+        Log.d("hide",mCurrentDelegate.toString())
         supportDelegate.showHideFragment(ITEM_DELEGATES[tabIndex], ITEM_DELEGATES[mCurrentDelegate])
         //注意先后顺序
         mCurrentDelegate = tabIndex
@@ -123,6 +125,35 @@ abstract class BaseBottomDelegate : LatteDelegate(),View.OnClickListener {
             }
         }
 
+    }
+
+
+    private fun resetColor() {
+        val count = mBottomBar.childCount
+        for (i in 0 until count) {
+            val item = mBottomBar.getChildAt(i) as RelativeLayout
+            val itemIcon = item.getChildAt(0) as IconTextView
+            itemIcon.setTextColor(Color.GRAY)
+            val itemTitle = item.getChildAt(1) as AppCompatTextView
+            itemTitle.setTextColor(Color.GRAY)
+        }
+    }
+
+    fun setCurrentFragment(currentFragment: Int) {
+        mCurrentDelegate = currentFragment
+    }
+
+    fun getItemFragments(): ArrayList<BottomItemDelegate> {
+        return ITEM_DELEGATES
+    }
+
+    fun changeColor(tabIndex: Int) {
+        resetColor()
+        val item = mBottomBar.getChildAt(tabIndex) as RelativeLayout
+        val itemIcon = item.getChildAt(0) as IconTextView
+        itemIcon.setTextColor(mClickedColor)
+        val itemTitle = item.getChildAt(1) as AppCompatTextView
+        itemTitle.setTextColor(mClickedColor)
     }
 
 }

@@ -2,6 +2,8 @@ package com.yuejianzhong.latte_core.ui.recycler
 
 import java.util.*
 
+
+
 class MultipleEntityBulider {
     companion object{
         private val FIELDS = LinkedHashMap<Any,Any>()
@@ -34,4 +36,8 @@ class MultipleEntityBulider {
         return MultipleItemEntity(FIELDS)
     }
 
+    fun setItemType(type: Int): MultipleEntityBulider {
+        FIELDS[MultipleFields.ITEM_TYPE] = type
+        return this
+    }
 }

@@ -20,7 +20,7 @@ class DiscoverDelegate : BottomItemDelegate() {
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
         val delegate = WebDelegateImpl.create("index.html")
-        loadRootFragment(R.id.web_discovery_container,delegate)
+        supportDelegate.loadRootFragment(R.id.web_discovery_container,delegate)
         delegate.topDelegate = getParentDelegate()
     }
 

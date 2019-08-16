@@ -6,38 +6,39 @@ import android.view.View.OnKeyListener
 import android.widget.Toast
 import com.yuejianzhong.latte_core.R
 import com.yuejianzhong.latte_core.delegate.LatteDelegate
+import com.yuejianzhong.latte_core.app.Latte
 
-public abstract class BottomItemDelegate : LatteDelegate(), OnKeyListener {
 
-    private var mExitTime: Long = 0
-    private val EXIT_TIME: Int = 2000
 
-    override fun onResume() {
-        super.onResume()
-        var rootView = view
-        if (rootView != null) {
-            rootView.setFocusableInTouchMode(true)
-//            rootView.isFocusableInTouchMode
-            rootView.requestFocus()
-            rootView.setOnKeyListener(this)
+public abstract class BottomItemDelegate : LatteDelegate() {
+
+//    private var mExitTime: Long = 0
+//    private val EXIT_TIME: Int = 2000
+    // 再点一次退出程序时间设置
+    private val WAIT_TIME = 2000L
+    private var TOUCH_TIME: Long = 0
+
+
+//    override fun onResume() {
+//        super.onResume()
+//        var rootView = view
+//        if (rootView != null) {
+//            rootView.setFocusableInTouchMode(true)
+////            rootView.isFocusableInTouchMode
+//            rootView.requestFocus()
+//            rootView.setOnKeyListener(this)
+//        }
+//    }
+
+    override fun onBackPressedSupport(): Boolean {
+        if (System.currentTimeMillis() - TOUCH_TIME < WAIT_TIME) {
+            _mActivity!!.finish()
+        } else {
+            TOUCH_TIME = System.currentTimeMillis()
+            Toast.makeText(_mActivity, "双击退出" + Latte.getApplicationContext().getString(R.string.app_name), Toast.LENGTH_SHORT).show()
         }
+        return true
     }
 
-    override fun onKey(v: View?, keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK && event?.action == KeyEvent.ACTION_DOWN) {
-            if ((System.currentTimeMillis() - mExitTime) > mExitTime) {
 
-                Toast.makeText(context, "双击退出" + getString(R.string.app_name), Toast.LENGTH_SHORT).show()
-                mExitTime = System.currentTimeMillis()
-
-            } else {
-                _mActivity.finish()
-                if (mExitTime == 0L) {
-                    mExitTime=0
-                }
-            }
-            return true
-        }
-        return false
-    }
 }

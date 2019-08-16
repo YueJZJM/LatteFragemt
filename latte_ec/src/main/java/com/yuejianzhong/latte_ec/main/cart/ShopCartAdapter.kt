@@ -104,7 +104,7 @@ class ShopCartAdapter(data: List<MultipleItemEntity>) : BaseMultiItemQuickAdapte
                     val currentCount = item.getField(ShopCartItemFields.COUNT)!! as Int
                     if (Integer.parseInt(tvCount.text.toString()) > 1) {
                         RestClient.builder()
-                                .url("shop_cart_count.php")
+                                .url("http://mock.fulingjie.com/mock-android/data/add_shop_cart.json")
                                 .loader(mContext)
                                 .params("count", currentCount.toString()!!)
                                 .success {
@@ -128,9 +128,9 @@ class ShopCartAdapter(data: List<MultipleItemEntity>) : BaseMultiItemQuickAdapte
 
                 //商品加加事件
                 iconPlus.setOnClickListener {
-                    val currentCount = item.getField(ShopCartItemFields.COUNT)!! as String
+                    val currentCount = item.getField(ShopCartItemFields.COUNT)!!.toString()
                     RestClient.builder()
-                            .url("shop_cart_count.php")
+                            .url("http://mock.fulingjie.com/mock-android/data/add_shop_cart.json")
                             .loader(mContext)
                             .params("count", currentCount!!)
                             .success {
