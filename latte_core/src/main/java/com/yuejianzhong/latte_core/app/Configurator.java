@@ -2,6 +2,7 @@ package com.yuejianzhong.latte_core.app;
 
 import android.os.Handler;
 
+import com.blankj.utilcode.util.Utils;
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
 
@@ -38,6 +39,7 @@ public class Configurator {
     public final void configure() {
         initIcons();
         LATTE_CONFIGS.put(ConfigType.CONFIG_READY.name(), true);
+        Utils.init(Latte.getApplicationContext());
     }
 
 

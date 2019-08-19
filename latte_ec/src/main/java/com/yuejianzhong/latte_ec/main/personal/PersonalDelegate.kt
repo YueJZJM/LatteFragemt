@@ -7,13 +7,15 @@ import com.yuejianzhong.latte_ec.R
 import com.yuejianzhong.latte_ec.main.EcBottomDelegate
 import android.support.v7.widget.LinearLayoutManager
 import com.yuejianzhong.latte_core.delegate.LatteDelegate
+import com.yuejianzhong.latte_core.delegate.bottom.BaseBottomDelegate
 import com.yuejianzhong.latte_ec.R.id.rv_personal_setting
 import com.yuejianzhong.latte_ec.main.personal.list.*
 import com.yuejianzhong.latte_ec.main.personal.order.OrderListDelegate
+import com.yuejianzhong.latte_ec.main.personal.profile.UserProfileDelegate
 import kotlinx.android.synthetic.main.delegate_personal.*
 
 
-class PersonalDelegate : BottomItemDelegate() {
+class PersonalDelegate : BottomItemDelegate(),View.OnClickListener {
 
     companion object {
         val ORDER_TYPE: String = "ORDER_TYPE"
@@ -31,7 +33,7 @@ class PersonalDelegate : BottomItemDelegate() {
     private fun startOrderListByType() {
         val delegate = OrderListDelegate()
         delegate.arguments = mArgs
-        getParentDelegate<LatteDelegate>().supportDelegate.start(delegate)
+        getParentDelegate<BaseBottomDelegate>().supportDelegate.start(delegate)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,10 +65,27 @@ class PersonalDelegate : BottomItemDelegate() {
         rv_personal_setting.adapter = adapter
 //        rv_personal_setting.addOnItemTouchListener(PersonalClickListener(this))
 
-        tv_all_order.setOnClickListener {
-            mArgs?.putString(ORDER_TYPE,"all")
-            startOrderListByType()
-        }
+//        tv_all_order.setOnClickListener {
+//            mArgs?.putString(ORDER_TYPE,"all")
+//            startOrderListByType()
+//        }
+        tv_all_order.setOnClickListener(this@PersonalDelegate)
+        img_user_avatar.setOnClickListener(this@PersonalDelegate)
+
     }
+
+    override fun onClick(v: View?) {
+        when (v) {
+            tv_all_order -> {
+                mArgs?.putString(ORDER_TYPE, "all")
+                startOrderListByType()
+            }
+            img_user_avatar -> {
+                getParentDelegate<BaseBottomDelegate>().supportDelegate.start(UserProfileDelegate())
+            }
+        }
+
+    }
+
 
 }
