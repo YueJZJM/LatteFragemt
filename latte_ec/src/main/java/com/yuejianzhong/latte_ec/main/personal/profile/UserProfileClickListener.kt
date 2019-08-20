@@ -9,6 +9,7 @@ import android.content.DialogInterface
 import android.net.Uri
 import android.support.annotation.NonNull
 import android.support.v7.app.AlertDialog
+import android.widget.ImageView
 import android.widget.TextView
 import com.alibaba.fastjson.JSON
 import com.bumptech.glide.Glide
@@ -42,6 +43,10 @@ class UserProfileClickListener constructor(val delegate: LatteDelegate) : Simple
                 CallbackManager.getInstance()
                         .addCallback(CallbackType.ON_CROP) {
                             com.blankj.utilcode.util.LogUtils.d(it)
+                            val avatar:ImageView = view.findViewById<View>(R.id.img_arrow_avatar) as ImageView
+                            Glide.with(delegate)
+                                        .load(it)
+                                        .into(avatar)
                         }
                 delegate.startCamerWithCheck()
                 //开始打开相机或者选择图片 =>  然后裁剪图片  => 产生回调(图片存储的地址URI)

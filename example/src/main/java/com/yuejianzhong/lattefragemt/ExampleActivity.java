@@ -14,6 +14,8 @@ import com.yuejianzhong.latte_ec.launcher.LauncherDelegate;
 import com.yuejianzhong.latte_ec.main.EcBottomDelegate;
 import com.yuejianzhong.latte_ec.sign.ISignListener;
 
+import cn.jpush.android.api.JPushInterface;
+
 public class ExampleActivity extends ProxyActivity implements ISignListener, ILauncherListener {
 
     @Override
@@ -57,4 +59,18 @@ public class ExampleActivity extends ProxyActivity implements ISignListener, ILa
                 break;
         }
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        JPushInterface.onResume(this);
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        JPushInterface.onPause(this);
+    }
+
 }

@@ -9,6 +9,7 @@ import android.support.v7.widget.LinearLayoutManager
 import com.yuejianzhong.latte_core.delegate.LatteDelegate
 import com.yuejianzhong.latte_core.delegate.bottom.BaseBottomDelegate
 import com.yuejianzhong.latte_ec.R.id.rv_personal_setting
+import com.yuejianzhong.latte_ec.main.personal.address.AddressDelegate
 import com.yuejianzhong.latte_ec.main.personal.list.*
 import com.yuejianzhong.latte_ec.main.personal.order.OrderListDelegate
 import com.yuejianzhong.latte_ec.main.personal.profile.UserProfileDelegate
@@ -45,6 +46,7 @@ class PersonalDelegate : BottomItemDelegate(),View.OnClickListener {
         val address = ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(1)
+                .setFragment(AddressDelegate())
                 .setText("收货地址")
                 .build()
 
@@ -63,12 +65,12 @@ class PersonalDelegate : BottomItemDelegate(),View.OnClickListener {
         rv_personal_setting.layoutManager = manager
         val adapter = ListAdapter(data)
         rv_personal_setting.adapter = adapter
-//        rv_personal_setting.addOnItemTouchListener(PersonalClickListener(this))
+        rv_personal_setting.addOnItemTouchListener(PersonalClickListener(this))
 
-//        tv_all_order.setOnClickListener {
-//            mArgs?.putString(ORDER_TYPE,"all")
-//            startOrderListByType()
-//        }
+        tv_all_order.setOnClickListener {
+            mArgs?.putString(ORDER_TYPE,"all")
+            startOrderListByType()
+        }
         tv_all_order.setOnClickListener(this@PersonalDelegate)
         img_user_avatar.setOnClickListener(this@PersonalDelegate)
 
