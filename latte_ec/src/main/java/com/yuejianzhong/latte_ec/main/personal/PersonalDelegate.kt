@@ -13,6 +13,7 @@ import com.yuejianzhong.latte_ec.main.personal.address.AddressDelegate
 import com.yuejianzhong.latte_ec.main.personal.list.*
 import com.yuejianzhong.latte_ec.main.personal.order.OrderListDelegate
 import com.yuejianzhong.latte_ec.main.personal.profile.UserProfileDelegate
+import com.yuejianzhong.latte_ec.main.personal.settings.SettingsDelegate
 import kotlinx.android.synthetic.main.delegate_personal.*
 
 
@@ -53,7 +54,7 @@ class PersonalDelegate : BottomItemDelegate(),View.OnClickListener {
         val system = ListBean.Builder()
                 .setItemType(ListItemType.ITEM_NORMAL)
                 .setId(2)
-//                .setFragment(SettingsFragment())
+                .setFragment(SettingsDelegate())
                 .setText("系统设置")
                 .build()
 

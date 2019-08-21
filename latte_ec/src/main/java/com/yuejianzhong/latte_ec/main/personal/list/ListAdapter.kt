@@ -27,6 +27,8 @@ class ListAdapter (data:List<ListBean>): BaseMultiItemQuickAdapter<ListBean, Bas
     init {
         addItemType(ListItemType.ITEM_NORMAL, R.layout.arrow_item_layout)
         addItemType(ListItemType.ITEM_AVATAR,R.layout.array_item_avater)
+        addItemType(ListItemType.ITEM_SWITCH,R.layout.arrow_switch_layout
+        )
     }
 
     override fun convert(helper: BaseViewHolder, item: ListBean) {
