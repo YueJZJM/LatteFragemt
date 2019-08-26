@@ -2,4 +2,6 @@
 <resources>
 
     <item name="delegate_content" type="id" />
+    <item name="star_count" type="id"/>
+    <item name="star_is_select" type="id"/>
 </resources>
