@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.widget.Toast;
@@ -11,11 +12,14 @@ import android.widget.Toast;
 import com.blankj.utilcode.util.ToastUtils;
 import com.yalantis.ucrop.UCrop;
 import com.yuejianzhong.latte_core.ui.camera.RequestCodes;
+import com.yuejianzhong.latte_core.ui.scanner.ScannerDelegate;
 import com.yuejianzhong.latte_core.util.callback.CallbackManager;
 import com.yuejianzhong.latte_core.util.callback.CallbackType;
 import com.yuejianzhong.latte_core.util.callback.IGlobalCallback;
 import com.yuejianzhong.latte_ec.camera.CameraImageBean;
 import com.yuejianzhong.latte_ec.camera.LatteCamera;
+
+import org.jetbrains.annotations.NotNull;
 
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.OnNeverAskAgain;
@@ -39,19 +43,20 @@ public abstract class PermissionCheckDelegate extends BaseDelegate {
         PermissionCheckDelegatePermissionsDispatcher.starCameraWithPermissionCheck(this);
     }
 
-    public void startStoryWithCheck() {
-//        PermissionCheckDelegatePermissionsDispatcher.checkStoryPermissionWithPermissionCheck();this
+
+    //扫描二维码(不直接调用)
+    @NeedsPermission(Manifest.permission.CAMERA)
+    void startScan(BaseDelegate fragment) {
+        fragment.getSupportDelegate().startForResult(new ScannerDelegate(),RequestCodes.SCAN);
     }
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionCheckDelegatePermissionsDispatcher.onRequestPermissionsResult(this,requestCode,grantResults);
+    public void startScanWithCheck(BaseDelegate fragment) {
+        PermissionCheckDelegatePermissionsDispatcher.startScanWithPermissionCheck(this,fragment);
     }
 
-    @OnPermissionDenied(Manifest.permission.CAMERA)
+    @OnPermissionDenied((Manifest.permission.CAMERA))
     void onCameraDenied() {
-        Toast.makeText(getContext(),"不允许拍照",Toast.LENGTH_LONG).show();
+        ToastUtils.showShort("不允许拍照");
     }
 
     @OnNeverAskAgain(Manifest.permission.CAMERA)
@@ -106,7 +111,11 @@ public abstract class PermissionCheckDelegate extends BaseDelegate {
                     .show();
         }
     }
-
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        PermissionCheckDelegatePermissionsDispatcher.onRequestPermissionsResult(this,requestCode,grantResults);
+    }
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -149,5 +158,11 @@ public abstract class PermissionCheckDelegate extends BaseDelegate {
                     break;
             }
         }
+    }
+
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, @NotNull Bundle data) {
+        super.onFragmentResult(requestCode, resultCode, data);
+
     }
 }

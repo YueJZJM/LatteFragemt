@@ -45,7 +45,9 @@ class IndexDelegate : BottomItemDelegate() {
         mRefreshHandler!!.firstPage("http://mock.fulingjie.com/mock-android/data/index_data.json")
         tb_index.background.mutate().alpha = 0
 
-
+        icon_index_scan.setOnClickListener {
+            startScanWithCheck(this.getParentDelegate());
+        }
 
 //        RestClient.builder()
 //                .url("http://mock.fulingjie.com/mock-android/data/index_data.json")

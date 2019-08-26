@@ -6,14 +6,9 @@ import com.chad.library.adapter.base.listener.SimpleClickListener
 
 class OrderListClickListener(private val fragment: OrderListDelegate) : SimpleClickListener() {
 
-    private var FRAGMENT: OrderListDelegate? =null
-
-   init {
-       this.FRAGMENT = fragment
-   }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {
-//        FRAGMENT.getSupportDelegate().start(OrderCommentFragment())
+        fragment.supportDelegate.start(OrderCommentDelegate())
     }
 
     override fun onItemLongClick(adapter: BaseQuickAdapter<*, *>, view: View, position: Int) {

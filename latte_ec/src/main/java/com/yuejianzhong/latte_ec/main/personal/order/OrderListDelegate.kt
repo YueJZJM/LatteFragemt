@@ -37,6 +37,12 @@ class OrderListDelegate : LatteDelegate() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+    }
+
+
+    override fun onLazyInitView(@Nullable savedInstanceState: Bundle?) {
+        super.onLazyInitView(savedInstanceState)
         RestClient.builder()
                 //                .loader(getContext())
                 .url("http://mock.fulingjie.com/mock-android/data/order_list.json")
@@ -52,11 +58,5 @@ class OrderListDelegate : LatteDelegate() {
                 }
                 .build()
                 .get()
-    }
-
-
-    override fun onLazyInitView(@Nullable savedInstanceState: Bundle?) {
-        super.onLazyInitView(savedInstanceState)
-
     }
 }
