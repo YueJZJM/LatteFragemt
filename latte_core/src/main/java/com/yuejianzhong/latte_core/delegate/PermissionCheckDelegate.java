@@ -160,9 +160,15 @@ public abstract class PermissionCheckDelegate extends BaseDelegate {
         }
     }
 
-    @Override
-    public void onFragmentResult(int requestCode, int resultCode, @NotNull Bundle data) {
-        super.onFragmentResult(requestCode, resultCode, data);
 
+    @Override
+    public void onFragmentResult(int requestCode, int resultCode, Bundle data) {
+//        super.onFragmentResult(requestCode, resultCode, data);
+        if (requestCode == RequestCodes.SCAN) {
+            if (data != null) {
+                final String qrCode = data.getString("SCAN_RESULT");
+
+            }
+        }
     }
 }

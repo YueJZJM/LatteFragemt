@@ -6,12 +6,16 @@ import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.blankj.utilcode.util.LogUtils
 import com.yuejianzhong.latte_core.delegate.bottom.BottomItemDelegate
 import com.yuejianzhong.latte_core.net.RestClient
 import com.yuejianzhong.latte_core.net.callback.ISuccess
 import com.yuejianzhong.latte_core.ui.recycler.BaseDecoration
 import com.yuejianzhong.latte_core.ui.recycler.MultipleFields
 import com.yuejianzhong.latte_core.ui.refresh.RefreshHandler
+import com.yuejianzhong.latte_core.util.callback.CallbackManager
+import com.yuejianzhong.latte_core.util.callback.CallbackType
+import com.yuejianzhong.latte_core.util.callback.IGlobalCallback
 import com.yuejianzhong.latte_ec.R
 import com.yuejianzhong.latte_ec.main.EcBottomDelegate
 import kotlinx.android.synthetic.main.delegate_index.*
@@ -49,13 +53,18 @@ class IndexDelegate : BottomItemDelegate() {
             startScanWithCheck(this.getParentDelegate());
         }
 
+        CallbackManager.getInstance()
+                .addCallback(CallbackType.ON_SCAN) {
+                    LogUtils.d(it as String)
+                }
+
 //        RestClient.builder()
 //                .url("http://mock.fulingjie.com/mock-android/data/index_data.json")
 //                .success(ISuccess {response: String? ->
 //                    val converter: IndexDataConverter = IndexDataConverter()
 //                    converter.mJsonData = response
 //                    val list =  converter.conver()
-//                    val image :String = list[1].getField(MultipleFields.IMAGE_URL) as String
+//                    vl image :String = list[1].getField(MultipleFields.IMAGE_URL) as String
 //                    Toast.makeText(context,image,Toast.LENGTH_SHORT).show()
 //                }).build().get()
     }
