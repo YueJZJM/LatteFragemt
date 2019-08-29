@@ -5,6 +5,7 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.View
+import android.view.View.OnFocusChangeListener
 import android.widget.Toast
 import com.blankj.utilcode.util.LogUtils
 import com.yuejianzhong.latte_core.delegate.bottom.BottomItemDelegate
@@ -15,12 +16,20 @@ import com.yuejianzhong.latte_core.ui.recycler.MultipleFields
 import com.yuejianzhong.latte_core.ui.refresh.RefreshHandler
 import com.yuejianzhong.latte_core.util.callback.CallbackManager
 import com.yuejianzhong.latte_core.util.callback.CallbackType
-import com.yuejianzhong.latte_core.util.callback.IGlobalCallback
-import com.yuejianzhong.latte_ec.R
 import com.yuejianzhong.latte_ec.main.EcBottomDelegate
 import kotlinx.android.synthetic.main.delegate_index.*
+import com.yuejianzhong.latte_core.delegate.LatteDelegate
+import com.yuejianzhong.latte_ec.main.index.search.SearchDelegate
 
-class IndexDelegate : BottomItemDelegate() {
+
+class IndexDelegate : BottomItemDelegate(), OnFocusChangeListener {
+
+
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        if (hasFocus) {
+            getParentDelegate<LatteDelegate>().start(SearchDelegate())
+        }
+    }
 //    override fun onBindView(savedInstanceState: Bundle?, rootView: View) {
 //    }
 
@@ -33,7 +42,7 @@ class IndexDelegate : BottomItemDelegate() {
     }
 
     override fun setLayout(): Any {
-        return R.layout.delegate_index
+        return com.yuejianzhong.latte_ec.R.layout.delegate_index
     }
 
     override fun onBindView(savedInstanceState: Bundle?, rootView: View) {
@@ -57,6 +66,8 @@ class IndexDelegate : BottomItemDelegate() {
                 .addCallback(CallbackType.ON_SCAN) {
                     LogUtils.d(it as String)
                 }
+
+        et_search_view.onFocusChangeListener = this
 
 //        RestClient.builder()
 //                .url("http://mock.fulingjie.com/mock-android/data/index_data.json")

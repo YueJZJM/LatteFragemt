@@ -1,10 +1,13 @@
 package com.yuejianzhong.latte_core.app;
 
 import android.os.Handler;
+import android.support.annotation.NonNull;
 
 import com.blankj.utilcode.util.Utils;
 import com.joanzapata.iconify.IconFontDescriptor;
 import com.joanzapata.iconify.Iconify;
+import com.yuejianzhong.latte_core.delegate.web.event.Event;
+import com.yuejianzhong.latte_core.delegate.web.event.EventManager;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,6 +48,12 @@ public class Configurator {
 
     public final Configurator withApiHost(String host) {
         LATTE_CONFIGS.put(ConfigType.API_HOST.name(), host);
+        return this;
+    }
+
+    public Configurator withWebEvent(@NonNull String name, @NonNull Event event) {
+        final EventManager manager = EventManager.Companion.getInstance();
+        manager.addEvent(name, event);
         return this;
     }
 

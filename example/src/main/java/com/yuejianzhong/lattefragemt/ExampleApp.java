@@ -5,8 +5,10 @@ import android.support.v4.os.TraceCompat;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.joanzapata.iconify.fonts.FontAwesomeModule;
+import com.mob.MobSDK;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
+import com.yuejianzhong.event.ShareEvent;
 import com.yuejianzhong.latte_core.app.Latte;
 import com.yuejianzhong.latte_core.util.callback.CallbackManager;
 import com.yuejianzhong.latte_core.util.callback.CallbackType;
@@ -27,6 +29,7 @@ public class ExampleApp extends Application {
                 .withIcon(new FontAwesomeModule())
                 .withIcon(new FontEcModule())  //自定义字体 module
 //                .withInterceptor(new DebugInterceptor("index", R.raw.test))
+                .withWebEvent("share",new ShareEvent())
                 .configure();
 
         Logger.addLogAdapter(new AndroidLogAdapter());
@@ -35,6 +38,9 @@ public class ExampleApp extends Application {
         //开启极光推送
         JPushInterface.setDebugMode(true);
         JPushInterface.init(this);
+
+        MobSDK.init(this);
+
 
         //子模块关闭推送 反向控制主模块关闭推送 接口实现
         CallbackManager.getInstance()
