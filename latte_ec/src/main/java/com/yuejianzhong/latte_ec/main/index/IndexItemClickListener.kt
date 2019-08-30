@@ -4,7 +4,9 @@ import android.view.View
 import com.chad.library.adapter.base.BaseQuickAdapter
 import com.chad.library.adapter.base.listener.SimpleClickListener
 import com.yuejianzhong.latte_core.delegate.LatteDelegate
-import com.yuejianzhong.latte_ec.detail.GoodsDelegate
+import com.yuejianzhong.latte_core.ui.recycler.MultipleFields
+import com.yuejianzhong.latte_core.ui.recycler.MultipleItemEntity
+import com.yuejianzhong.latte_ec.main.index.detail.GoodsDetailFragment
 
 class IndexItemClickListener private constructor(delegate: LatteDelegate) : SimpleClickListener() {
 
@@ -32,7 +34,8 @@ class IndexItemClickListener private constructor(delegate: LatteDelegate) : Simp
     }
 
     override fun onItemClick(adapter: BaseQuickAdapter<*, *>?, view: View?, position: Int) {
-        val goodsDelegate:GoodsDelegate = GoodsDelegate.create()
+        val entity = baseQuickAdapter.data[position] as MultipleItemEntity
+        val goodsDelegate= GoodsDetailFragment.create(entity.getField(MultipleFields.ID) as Int)
         DELEGATE.start(goodsDelegate)
     }
 
