@@ -1,6 +1,7 @@
 package com.yuejianzhong.latte_ec.main.index.search
 
 import com.alibaba.fastjson.JSONArray
+import com.blankj.utilcode.util.LogUtils
 import com.yuejianzhong.latte_core.ui.recycler.DataConverter
 import com.yuejianzhong.latte_core.ui.recycler.MultipleFields
 import com.yuejianzhong.latte_core.ui.recycler.MultipleItemEntity

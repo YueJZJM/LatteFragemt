@@ -1,5 +1,6 @@
 package com.yuejianzhong.latte_ec.main.index.search
 
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import com.yuejianzhong.latte_core.delegate.LatteDelegate
@@ -11,6 +12,9 @@ import com.yuejianzhong.latte_core.net.RestClient
 import com.choices.divider.Divider
 import android.support.v7.widget.LinearLayoutManager
 import android.graphics.Color
+import android.view.inputmethod.InputMethodManager
+import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.LogUtils
 import com.choices.divider.DividerItemDecoration
 
 
@@ -44,7 +48,6 @@ class SearchDelegate : LatteDelegate() {
         val data = SearchDataConverter().conver()
         mAdapter = SearchAdapter(data)
         rv_search.adapter = mAdapter
-
         val itemDecoration = DividerItemDecoration()
         itemDecoration.setDividerLookup(object : DividerItemDecoration.DividerLookup {
             override fun getVerticalDivider(position: Int): Divider? {
@@ -65,7 +68,24 @@ class SearchDelegate : LatteDelegate() {
 
     override fun onResume() {
         super.onResume()
-        et_search_view1.isFocusable = true
+        LogUtils.d("onResume")
+//        et_search_view1.isFocusable = true
+        //editText获取焦点
+
+        et_search_view1.setFocusable(true);
+        et_search_view1.setFocusableInTouchMode(true);
+        et_search_view1.requestFocus();
+        //弹出软键盘
+        val inputManager = et_search_view1
+                .context
+                .getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputManager.showSoftInput(et_search_view1,0)
+    }
+
+    override fun onPause() {
+        super.onPause()
+        LogUtils.d("onPause")
+        KeyboardUtils.hideSoftInput(activity)
     }
 
     //服务器搜索 返回json 然后解析
@@ -74,6 +94,7 @@ class SearchDelegate : LatteDelegate() {
                 .url("http://mock.fulingjie.com/mock-android/api/search.php?key=$searchItemText")
                 .loader(context)
                 .success {
+//                    LogUtils.d(it)
                     saveItem(searchItemText)
                     et_search_view1.setText("")
                     //展示一些东西
@@ -87,10 +108,10 @@ class SearchDelegate : LatteDelegate() {
         if (!StringUtils.isEmpty(item) && !StringUtils.isEmpty(item)) {
             val history: MutableList<String>
             val historyStr = LattePreference.getCustomAppProfile(SearchDataConverter.TAG_SEARCH_HISTORY)
-            if (StringUtils.isEmpty(historyStr)) {
-                history = ArrayList()
+            history = if (StringUtils.isEmpty(historyStr)) {
+                ArrayList()
             } else {
-                history = JSON.parseObject<List<String>>(historyStr, ArrayList::class.java) as MutableList<String>
+                JSON.parseObject<List<String>>(historyStr, ArrayList::class.java) as MutableList<String>
             }
             history.add(item)
             val json = JSON.toJSONString(history)

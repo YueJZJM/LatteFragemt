@@ -59,7 +59,7 @@ class IndexDelegate : BottomItemDelegate(), OnFocusChangeListener {
         tb_index.background.mutate().alpha = 0
 
         icon_index_scan.setOnClickListener {
-            startScanWithCheck(this.getParentDelegate());
+            startScanWithCheck(this.getParentDelegate())
         }
 
         CallbackManager.getInstance()
