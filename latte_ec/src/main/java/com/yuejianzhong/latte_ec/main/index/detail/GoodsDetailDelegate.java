@@ -10,6 +10,7 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.RelativeLayout;
@@ -23,12 +24,15 @@ import com.blankj.utilcode.util.LogUtils;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.daimajia.androidanimations.library.YoYo;
 import com.joanzapata.iconify.widget.IconTextView;
 import com.yuejianzhong.latte_core.delegate.LatteDelegate;
 import com.yuejianzhong.latte_core.net.RestClient;
 import com.yuejianzhong.latte_core.net.callback.ISuccess;
 import com.yuejianzhong.latte_core.ui.banner.HolderCreator;
 import com.yuejianzhong.latte_core.ui.widget.CircleTextView;
+import com.yuejianzhong.latte_core.util.animation.BezierAnimation;
+import com.yuejianzhong.latte_core.util.animation.BezierUtil;
 import com.yuejianzhong.latte_ec.R;
 
 import org.jetbrains.annotations.NotNull;
@@ -45,7 +49,8 @@ import static com.blankj.utilcode.util.BarUtils.getStatusBarHeight;
  * Note:  商品详情页
  */
 
-public class GoodsDetailFragment extends LatteDelegate implements AppBarLayout.OnOffsetChangedListener {
+public class GoodsDetailDelegate extends LatteDelegate implements AppBarLayout.OnOffsetChangedListener,
+        BezierUtil.AnimationListener{
 
     private TabLayout mTabLayout = null;
     private ViewPager mViewPager = null;
@@ -76,10 +81,10 @@ public class GoodsDetailFragment extends LatteDelegate implements AppBarLayout.O
         }
     }
 
-    public static GoodsDetailFragment create(int goodsId) {
+    public static GoodsDetailDelegate create(int goodsId) {
         final Bundle args = new Bundle();
         args.putInt(ARG_GOODS_ID, goodsId);
-        final GoodsDetailFragment fragment = new GoodsDetailFragment();
+        final GoodsDetailDelegate fragment = new GoodsDetailDelegate();
         fragment.setArguments(args);
         return fragment;
     }
@@ -121,7 +126,7 @@ public class GoodsDetailFragment extends LatteDelegate implements AppBarLayout.O
                 .load(mGoodsThumbUrl)
                 .apply(OPTIONS)
                 .into(animImg);
-//        BezierAnimation.addCart(this, mRlAddShopCart, mIconShopCart, animImg, this);
+        BezierAnimation.addCart(this, mRlAddShopCart, mIconShopCart, animImg, this);
     }
 
     private void initTabLayout() {
@@ -176,14 +181,15 @@ public class GoodsDetailFragment extends LatteDelegate implements AppBarLayout.O
     }
 
     private void initGoodsInfo(JSONObject data) {
-//        final String goodsData = data.toJSONString();
-//        getSupportDelegate().
-//                loadRootFragment(R.id.frame_goods_info, GoodsInfoFragment.create(goodsData));
+        final String goodsData = data.toJSONString();
+        getSupportDelegate().
+                loadRootFragment(R.id.frame_goods_info, GoodsInfoDelegate.create(goodsData));
     }
 
     private void initPager(JSONObject data) {
-//        final PagerAdapter adapter = new TabPagerAdapter(getFragmentManager(), data);
-//        mViewPager.setAdapter(adapter);
+        assert getFragmentManager() != null;
+        final PagerAdapter adapter = new TabPagerAdapter(getFragmentManager(), data);
+        mViewPager.setAdapter(adapter);
     }
 
     private void setShopCartCount(JSONObject data) {
@@ -193,29 +199,29 @@ public class GoodsDetailFragment extends LatteDelegate implements AppBarLayout.O
         }
     }
 
-//    @Override
-//    public void onAnimationEnd() {
-//        YoYo.with(new ScaleUpAnimator())
-//                .duration(500)
-//                .playOn(mIconShopCart);
-//        RestClient.builder()
-//                .url("add_shop_cart_count.php")
-//                .success(new ISuccess() {
-//                    @Override
-//                    public void onSuccess(String response) {
-//                        LogUtils.json("ADD", response);
-//                        final boolean isAdded = JSON.parseObject(response).getBoolean("data");
-//                        if (isAdded) {
-//                            mShopCount++;
-//                            mCircleTextView.setVisibility(View.VISIBLE);
-//                            mCircleTextView.setText(String.valueOf(mShopCount));
-//                        }
-//                    }
-//                })
-//                .params("count", mShopCount)
-//                .build()
-//                .post();
-//    }
+    @Override
+    public void onAnimationEnd() {
+        YoYo.with(new ScaleUpAnimator())
+                .duration(500)
+                .playOn(mIconShopCart);
+        RestClient.builder()
+                .url("http://mock.fulingjie.com/mock-android/data/add_shop_cart.json")
+                .success(new ISuccess() {
+                    @Override
+                    public void onSuccess(String response) {
+                        LogUtils.json("ADD", response);
+                        final boolean isAdded = JSON.parseObject(response).getBoolean("data");
+                        if (isAdded) {
+                            mShopCount++;
+                            mCircleTextView.setVisibility(View.VISIBLE);
+                            mCircleTextView.setText(String.valueOf(mShopCount));
+                        }
+                    }
+                })
+                .params("count", String.valueOf(mShopCount))
+                .build()
+                .post();
+    }
 
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int i) {
