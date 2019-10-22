@@ -1,6 +1,8 @@
 package com.yuejianzhong.latte_ec.main.index
 
+import android.annotation.SuppressLint
 import android.os.Bundle
+import android.support.annotation.MainThread
 import android.support.v4.content.ContextCompat
 import android.support.v7.widget.GridLayoutManager
 import android.util.Log
@@ -19,7 +21,14 @@ import com.yuejianzhong.latte_core.util.callback.CallbackType
 import com.yuejianzhong.latte_ec.main.EcBottomDelegate
 import kotlinx.android.synthetic.main.delegate_index.*
 import com.yuejianzhong.latte_core.delegate.LatteDelegate
+import com.yuejianzhong.latte_core.net.RestCreator
 import com.yuejianzhong.latte_ec.main.index.search.SearchDelegate
+import io.reactivex.Observer
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.Disposable
+import io.reactivex.schedulers.Schedulers
+import java.util.*
+import kotlin.math.log10
 
 
 class IndexDelegate : BottomItemDelegate(), OnFocusChangeListener {
@@ -78,6 +87,7 @@ class IndexDelegate : BottomItemDelegate(), OnFocusChangeListener {
 //                    vl image :String = list[1].getField(MultipleFields.IMAGE_URL) as String
 //                    Toast.makeText(context,image,Toast.LENGTH_SHORT).show()
 //                }).build().get()
+        onCallRxGet()
     }
 
     private fun initRefreshLayout(){
@@ -99,5 +109,33 @@ class IndexDelegate : BottomItemDelegate(), OnFocusChangeListener {
 
         var ecBottonDelegate: EcBottomDelegate = getParentDelegate()
         rv_index.addOnItemTouchListener(IndexItemClickListener.create(ecBottonDelegate))
+    }
+
+    fun onCallRxGet() {
+        val url = "http://mock.fulingjie.com/mock-android/data/index_data.json"
+        val params = WeakHashMap<String, Any>()
+        val observable = RestCreator.getRxRestService().get(url, params)
+        observable.subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())      // 主线程更新UI
+                .subscribe { object : Observer<String> {
+                    override fun onComplete() {
+
+                    }
+
+                    override fun onError(e: Throwable) {
+
+                    }
+
+                    override fun onNext(t: String) {
+                        Toast.makeText(context,t,Toast.LENGTH_LONG).show()
+                        Log.d("yjz.aa",t)
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+
+                    }
+                    }
+                }
     }
 }

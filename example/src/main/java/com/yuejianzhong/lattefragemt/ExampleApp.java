@@ -1,6 +1,8 @@
 package com.yuejianzhong.lattefragemt;
 
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 import android.support.v4.os.TraceCompat;
 
 import com.blankj.utilcode.util.LogUtils;
@@ -20,6 +22,13 @@ import cn.jpush.android.api.JPushInterface;
 import static com.yuejianzhong.lattefragemt.R.*;
 
 public class ExampleApp extends Application {
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
