@@ -68,7 +68,7 @@ class SearchDelegate : LatteDelegate() {
 
     override fun onResume() {
         super.onResume()
-        LogUtils.d("onResume")
+//        LogUtils.d("onResume")
 //        et_search_view1.isFocusable = true
         //editText获取焦点
 

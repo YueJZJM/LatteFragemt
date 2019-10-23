@@ -35,7 +35,7 @@ public abstract class PermissionCheckDelegate extends BaseDelegate {
     @NeedsPermission(Manifest.permission.CAMERA)
     void starCamera() {
         PermissionCheckDelegatePermissionsDispatcher.checkStoryPermissionWithPermissionCheck(this);
-//        LatteCamera.INSTANCE.start(this);
+        LatteCamera.INSTANCE.start(this);
     }
 
     //这个是真正调用的方法

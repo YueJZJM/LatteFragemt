@@ -48,7 +48,12 @@ class IndexDelegate : BottomItemDelegate(), OnFocusChangeListener {
     override fun onLazyInitView(savedInstanceState: Bundle?) {
         super.onLazyInitView(savedInstanceState)
 //        initRefreshLayout()
+        onCallRxGet()
+//        onCallRxGet2()
     }
+
+
+
 
     override fun setLayout(): Any {
         return com.yuejianzhong.latte_ec.R.layout.delegate_index
@@ -68,6 +73,7 @@ class IndexDelegate : BottomItemDelegate(), OnFocusChangeListener {
         tb_index.background.mutate().alpha = 0
 
         icon_index_scan.setOnClickListener {
+//            onCallRxGet()
             startScanWithCheck(this.getParentDelegate())
         }
 
@@ -87,7 +93,7 @@ class IndexDelegate : BottomItemDelegate(), OnFocusChangeListener {
 //                    vl image :String = list[1].getField(MultipleFields.IMAGE_URL) as String
 //                    Toast.makeText(context,image,Toast.LENGTH_SHORT).show()
 //                }).build().get()
-        onCallRxGet()
+
     }
 
     private fun initRefreshLayout(){
@@ -111,20 +117,45 @@ class IndexDelegate : BottomItemDelegate(), OnFocusChangeListener {
         rv_index.addOnItemTouchListener(IndexItemClickListener.create(ecBottonDelegate))
     }
 
+    private fun onCallRxGet2() {
+        val url = "http://mock.fulingjie.com/mock-android/data/index_data.json"
+        val params = WeakHashMap<String, Any>()
+        val observer = RestCreator.getRxRestService2().get(url, params)
+        observer.subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(object : Observer<String> {
+                    override fun onComplete() {
+                        LogUtils.d("oncomplete")
+                    }
+
+                    override fun onError(e: Throwable) {
+                        LogUtils.d("onerror")
+                    }
+
+                    override fun onNext(t: String) {
+                        LogUtils.d("onnext ${t}")
+                    }
+
+                    override fun onSubscribe(d: Disposable) {
+                        LogUtils.d("onSubscribe ${d.isDisposed}")
+                    }
+                })
+    }
+
+//    @SuppressLint("CheckResult")
     fun onCallRxGet() {
         val url = "http://mock.fulingjie.com/mock-android/data/index_data.json"
         val params = WeakHashMap<String, Any>()
         val observable = RestCreator.getRxRestService().get(url, params)
         observable.subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())      // 主线程更新UI
-                .subscribe { object : Observer<String> {
+                .subscribe( object : Observer<String> {
                     override fun onComplete() {
-
+                        Log.d("yjz.aa","onComplete")
                     }
 
                     override fun onError(e: Throwable) {
-
+                        Log.d("yjz.aa",e.toString())
                     }
 
                     override fun onNext(t: String) {
@@ -133,9 +164,12 @@ class IndexDelegate : BottomItemDelegate(), OnFocusChangeListener {
                     }
 
                     override fun onSubscribe(d: Disposable) {
-
+                        Log.d("yjz.aa",d.toString())
                     }
-                    }
-                }
+                })
     }
+
+
+
+
 }

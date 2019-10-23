@@ -77,4 +77,13 @@ public class RestCreator {
         return RxRestServiceHolder.REST_SERVICE;
     }
 
+    private static final class RxRestServiceHolder2{
+        private static final com.yuejianzhong.latte_core.net.rxjava2.RxRestService REST_SERVICE =
+                RetrofitHolder.RETROFIT_CLIENT.create(com.yuejianzhong.latte_core.net.rxjava2.RxRestService.class);
+    }
+
+    public static com.yuejianzhong.latte_core.net.rxjava2.RxRestService getRxRestService2(){
+        return RxRestServiceHolder2.REST_SERVICE;
+    }
+
 }
